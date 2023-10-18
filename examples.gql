@@ -1,0 +1,28 @@
+query script($token: String!) {
+  container {
+    generate(
+      token: $token
+      prompt: "based on latest alpine, install packages curl and jq"
+    ) {
+      generateBashScript(
+        token: $token
+        prompt: "fetch content from https://api.ipify.org?format=json and print the ip field"
+      ) {
+        stdout
+      }
+    }
+  }
+}
+
+query build($token: String!) {
+  container {
+    generate(
+      token: $token
+      prompt: "based on golang 1.20 with make installed, clone and build helm from github, use the main branch, install helm in /bin"
+    ) {
+      withExec(args: ["/bin/helm", "version"]) {
+        stdout
+      }
+    }
+  }
+}
